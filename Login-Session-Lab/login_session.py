@@ -6,14 +6,18 @@ app.config['SECRET_KEY'] = 'super-secret-key'
 
 @app.route('/', methods=['GET' ,'POST']) # What methods are needed?
 def home():
-	if request=='POST':
-		try:
+	try:
+		if request.method=='POST':
+			print("hghfgfh")
 			login_session['age']= request.form['age']
 			login_session['quote']= request.form['quote']
 			login_session['author']= request.form['name']
 			return render_template('thanks.html')
-		except:
-			return render_template('error.html')
+		print("777676")
+		return render_template('home.html')
+	except:
+		print("something else")
+		return render_template('error.html')
 	
 
 
@@ -27,7 +31,7 @@ def error():
 @app.route('/display')
 def display():
 
-	return render_template('display.html', ) # What variables are needed?
+	return render_template('display.html', age= login_session['age'], quote=login_session['quote'], name=login_session['author'])
 
 
 @app.route('/thanks')
